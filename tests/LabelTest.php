@@ -7,20 +7,20 @@ use App\Models\User;
 
 class LabelTest extends TestCase
 {
-    protected $user;
+    protected $admin;
 
     public function setUp() : void
     {
         parent::setUp();
 
-        $this->user = User::find(1);
+        $this->admin = User::find(1);
     }
 
     public function testCreate()
     {
         $data = $this->getJsonFixture('create_label_request.json');
 
-        $response = $this->actingAs($this->user)->json('post', '/labels', $data);
+        $response = $this->actingAs($this->admin)->json('post', '/labels', $data);
 
         $response->assertStatus(Response::HTTP_OK);
 
@@ -42,7 +42,7 @@ class LabelTest extends TestCase
     {
         $data = $this->getJsonFixture('update_label_request.json');
 
-        $response = $this->actingAs($this->user)->json('put', '/labels/1', $data);
+        $response = $this->actingAs($this->admin)->json('put', '/labels/1', $data);
 
         $response->assertStatus(Response::HTTP_NO_CONTENT);
 
@@ -53,7 +53,7 @@ class LabelTest extends TestCase
     {
         $data = $this->getJsonFixture('update_label_request.json');
 
-        $response = $this->actingAs($this->user)->json('put', '/labels/0', $data);
+        $response = $this->actingAs($this->admin)->json('put', '/labels/0', $data);
 
         $response->assertStatus(Response::HTTP_NOT_FOUND);
     }
@@ -69,7 +69,7 @@ class LabelTest extends TestCase
 
     public function testDelete()
     {
-        $response = $this->actingAs($this->user)->json('delete', '/labels/1');
+        $response = $this->actingAs($this->admin)->json('delete', '/labels/1');
 
         $response->assertStatus(Response::HTTP_NO_CONTENT);
 
@@ -80,7 +80,7 @@ class LabelTest extends TestCase
 
     public function testDeleteNotExists()
     {
-        $response = $this->actingAs($this->user)->json('delete', '/labels/0');
+        $response = $this->actingAs($this->admin)->json('delete', '/labels/0');
 
         $response->assertStatus(Response::HTTP_NOT_FOUND);
 
@@ -98,7 +98,7 @@ class LabelTest extends TestCase
 
     public function testGet()
     {
-        $response = $this->actingAs($this->user)->json('get', '/labels/1');
+        $response = $this->actingAs($this->admin)->json('get', '/labels/1');
 
         $response->assertStatus(Response::HTTP_OK);
 
@@ -110,7 +110,7 @@ class LabelTest extends TestCase
 
     public function testGetNotExists()
     {
-        $response = $this->actingAs($this->user)->json('get', '/labels/0');
+        $response = $this->actingAs($this->admin)->json('get', '/labels/0');
 
         $response->assertStatus(Response::HTTP_NOT_FOUND);
     }
@@ -121,6 +121,10 @@ class LabelTest extends TestCase
             [
                 'filter' => ['all' => 1],
                 'result' => 'search_all.json'
+            ],
+            [
+                'filter' => ['query' => '2'],
+                'result' => 'search_by_query.json'
             ],
             [
                 'filter' => [
@@ -140,12 +144,9 @@ class LabelTest extends TestCase
      */
     public function testSearch($filter, $fixture)
     {
-        $response = $this->json('get', '/labels', $filter);
+        $response = $this->actingAs($this->admin)->json('get', '/labels', $filter);
 
         $response->assertStatus(Response::HTTP_OK);
-
-        // TODO: Need to remove after first successful start
-        $this->exportJson($fixture, $response->json());
 
         $this->assertEqualsFixture($fixture, $response->json());
     }

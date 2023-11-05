@@ -20,10 +20,10 @@ class LabelService extends EntityService
     public function search($filters)
     {
         return $this->repository
+            ->searchQuery($filters)
             ->filterByQuery(['name'])
             ->with(Arr::get($filters, 'with', []))
             ->withCount(Arr::get($filters, 'with_count', []))
-            ->searchQuery($filters)
             ->getSearchResults();
     }
 }

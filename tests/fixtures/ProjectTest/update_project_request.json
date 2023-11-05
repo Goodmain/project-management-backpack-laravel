@@ -1,1 +1,6 @@
-[]
+{
+  "name": "Updated Project",
+  "description": "Updated description text",
+  "tags": [],
+  "users": [2]
+}

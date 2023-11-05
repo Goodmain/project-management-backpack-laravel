@@ -1,0 +1,96 @@
+{
+    "current_page": 1,
+    "data": [
+        {
+            "id": 1,
+            "name": "Project 1",
+            "description": "Description text",
+            "tags": [
+                "tag1",
+                "tag2"
+            ],
+            "created_at": "2016-10-20T11:05:00.000000Z",
+            "updated_at": "2016-10-20T11:05:00.000000Z",
+            "deleted_at": null
+        },
+        {
+            "id": 2,
+            "name": "Project 2",
+            "description": "Another description text 2",
+            "tags": [
+                "tag2",
+                "tag1"
+            ],
+            "created_at": "2016-10-20T11:05:00.000000Z",
+            "updated_at": "2016-10-20T11:05:00.000000Z",
+            "deleted_at": null
+        },
+        {
+            "id": 3,
+            "name": "Project 3",
+            "description": "Text",
+            "tags": [],
+            "created_at": "2016-10-20T11:05:00.000000Z",
+            "updated_at": "2016-10-20T11:05:00.000000Z",
+            "deleted_at": null
+        },
+        {
+            "id": 4,
+            "name": "Project 4",
+            "description": "Text is here 1",
+            "tags": [],
+            "created_at": "2016-10-20T11:05:00.000000Z",
+            "updated_at": "2016-10-20T11:05:00.000000Z",
+            "deleted_at": null
+        },
+        {
+            "id": 5,
+            "name": "Project 5",
+            "description": "Something about project",
+            "tags": [
+                "tag1"
+            ],
+            "created_at": "2016-10-20T11:05:00.000000Z",
+            "updated_at": "2016-10-20T11:05:00.000000Z",
+            "deleted_at": null
+        },
+        {
+            "id": 6,
+            "name": "Project 6",
+            "description": "Maybe here will be the description",
+            "tags": [
+                "tag2"
+            ],
+            "created_at": "2016-10-20T11:05:00.000000Z",
+            "updated_at": "2016-10-20T11:05:00.000000Z",
+            "deleted_at": null
+        }
+    ],
+    "first_page_url": "http:\/\/localhost\/projects?page=1",
+    "from": 1,
+    "last_page": 1,
+    "last_page_url": "http:\/\/localhost\/projects?page=1",
+    "links": [
+        {
+            "url": null,
+            "label": "&laquo; Previous",
+            "active": false
+        },
+        {
+            "url": "http:\/\/localhost\/projects?page=1",
+            "label": "1",
+            "active": true
+        },
+        {
+            "url": null,
+            "label": "Next &raquo;",
+            "active": false
+        }
+    ],
+    "next_page_url": null,
+    "path": "http:\/\/localhost\/projects",
+    "per_page": 6,
+    "prev_page_url": null,
+    "to": 6,
+    "total": 6
+}

@@ -17,13 +17,24 @@ class ProjectService extends EntityService
         $this->setRepository(ProjectRepository::class);
     }
 
+    public function update($id, array $data)
+    {
+        $result = $this->repository->update($id, $data);
+
+        if (Arr::has($data, 'users')) {
+            $result->users()->sync($data['users']);
+        }
+
+        return $result;
+    }
+
     public function search($filters)
     {
         return $this->repository
-            ->filterByQuery(['name'])
+            ->searchQuery($filters)
+            ->filterByQuery(['name', 'description'])
             ->with(Arr::get($filters, 'with', []))
             ->withCount(Arr::get($filters, 'with_count', []))
-            ->searchQuery($filters)
             ->getSearchResults();
     }
 }

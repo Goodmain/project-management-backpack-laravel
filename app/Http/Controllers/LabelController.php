@@ -34,7 +34,7 @@ class LabelController extends Controller
 
     public function search(SearchLabelsRequest $request, LabelService $service): JsonResponse
     {
-        $result = $service->search($request->onlyValidated());
+        $result = $service->search($request->onlyValidated());dump($request->onlyValidated());
 
         return response()->json($result);
     }
@@ -52,5 +52,4 @@ class LabelController extends Controller
 
         return response('', Response::HTTP_NO_CONTENT);
     }
-
 }
