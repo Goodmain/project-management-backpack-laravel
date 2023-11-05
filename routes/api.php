@@ -1,5 +1,8 @@
 <?php
 
+use App\Http\Controllers\LabelController;
+use App\Http\Controllers\TaskController;
+use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\SettingController;
 use App\Http\Controllers\StatusController;
@@ -27,6 +30,24 @@ Route::group(['middleware' => 'auth_group'], function () {
     Route::get('profile', [UserController::class, 'profile']);
     Route::put('profile', [UserController::class, 'updateProfile']);
     Route::delete('profile', [UserController::class, 'deleteProfile']);
+
+    Route::post('/projects', ['uses' => ProjectController::class . '@create']);
+    Route::put('/projects/{id}', ['uses' => ProjectController::class . '@update']);
+    Route::delete('/projects/{id}', ['uses' => ProjectController::class . '@delete']);
+    Route::get('/projects/{id}', ['uses' => ProjectController::class . '@get']);
+    Route::get('/projects', ['uses' => ProjectController::class . '@search']);
+
+    Route::post('/tasks', ['uses' => TaskController::class . '@create']);
+    Route::put('/tasks/{id}', ['uses' => TaskController::class . '@update']);
+    Route::delete('/tasks/{id}', ['uses' => TaskController::class . '@delete']);
+    Route::get('/tasks/{id}', ['uses' => TaskController::class . '@get']);
+    Route::get('/tasks', ['uses' => TaskController::class . '@search']);
+
+    Route::post('/labels', ['uses' => LabelController::class . '@create']);
+    Route::put('/labels/{id}', ['uses' => LabelController::class . '@update']);
+    Route::delete('/labels/{id}', ['uses' => LabelController::class . '@delete']);
+    Route::get('/labels/{id}', ['uses' => LabelController::class . '@get']);
+    Route::get('/labels', ['uses' => LabelController::class . '@search']);
 
     Route::put('settings/{name}', [SettingController::class, 'update']);
     Route::get('settings/{name}', [SettingController::class, 'get']);
