@@ -1,1 +1,7 @@
-[]
+{
+  "name": "New Task",
+  "description": "New description",
+  "project_id": 2,
+  "user_id": 2,
+  "labels": [1, 4]
+}

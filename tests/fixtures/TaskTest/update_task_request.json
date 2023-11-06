@@ -1,1 +1,6 @@
-[]
+{
+  "name": "Updated task",
+  "description": "Updated description",
+  "status": "in_progress",
+  "user_id": 1
+}

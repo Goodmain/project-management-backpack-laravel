@@ -15,7 +15,6 @@ class UpdateTaskRequest extends Request
             'name' => 'string',
             'description' => 'string',
             'status' => 'string|in:' . TaskStatusEnum::toString(),
-            'project_id' => 'required|integer|exists:projects,id',
             'user_id' => 'nullable|integer|exists:users,id',
         ];
     }

@@ -102,9 +102,6 @@ class LabelTest extends TestCase
 
         $response->assertStatus(Response::HTTP_OK);
 
-        // TODO: Need to remove after first successful start
-        $this->exportJson('get_label.json', $response->json());
-
         $this->assertEqualsFixture('get_label.json', $response->json());
     }
 

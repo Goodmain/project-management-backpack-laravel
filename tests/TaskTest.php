@@ -2,31 +2,34 @@
 
 namespace App\Tests;
 
+use Illuminate\Support\Arr;
 use Symfony\Component\HttpFoundation\Response;
 use App\Models\User;
 
 class TaskTest extends TestCase
 {
+    protected $admin;
     protected $user;
 
     public function setUp() : void
     {
         parent::setUp();
 
-        $this->user = User::find(1);
+        $this->admin = User::find(1);
+        $this->admin = User::find(2);
     }
 
     public function testCreate()
     {
         $data = $this->getJsonFixture('create_task_request.json');
 
-        $response = $this->actingAs($this->user)->json('post', '/tasks', $data);
+        $response = $this->actingAs($this->admin)->json('post', '/tasks', $data);
 
         $response->assertStatus(Response::HTTP_OK);
 
         $this->assertEqualsFixture('create_task_response.json', $response->json());
 
-        $this->assertDatabaseHas('tasks', $this->getJsonFixture('create_task_response.json'));
+        $this->assertDatabaseHas('tasks', Arr::except($data, ['labels']));
     }
 
     public function testCreateNoAuth()
@@ -42,7 +45,7 @@ class TaskTest extends TestCase
     {
         $data = $this->getJsonFixture('update_task_request.json');
 
-        $response = $this->actingAs($this->user)->json('put', '/tasks/1', $data);
+        $response = $this->actingAs($this->admin)->json('put', '/tasks/1', $data);
 
         $response->assertStatus(Response::HTTP_NO_CONTENT);
 
@@ -53,7 +56,7 @@ class TaskTest extends TestCase
     {
         $data = $this->getJsonFixture('update_task_request.json');
 
-        $response = $this->actingAs($this->user)->json('put', '/tasks/0', $data);
+        $response = $this->actingAs($this->admin)->json('put', '/tasks/0', $data);
 
         $response->assertStatus(Response::HTTP_NOT_FOUND);
     }
@@ -69,18 +72,19 @@ class TaskTest extends TestCase
 
     public function testDelete()
     {
-        $response = $this->actingAs($this->user)->json('delete', '/tasks/1');
+        $response = $this->actingAs($this->admin)->json('delete', '/tasks/1');
 
         $response->assertStatus(Response::HTTP_NO_CONTENT);
 
         $this->assertDatabaseMissing('tasks', [
-            'id' => 1
+            'id' => 1,
+            'deleted_at' => null,
         ]);
     }
 
     public function testDeleteNotExists()
     {
-        $response = $this->actingAs($this->user)->json('delete', '/tasks/0');
+        $response = $this->actingAs($this->admin)->json('delete', '/tasks/0');
 
         $response->assertStatus(Response::HTTP_NOT_FOUND);
 
@@ -98,19 +102,18 @@ class TaskTest extends TestCase
 
     public function testGet()
     {
-        $response = $this->actingAs($this->user)->json('get', '/tasks/1');
+        $response = $this->actingAs($this->admin)->json('get', '/tasks/1', [
+            'with' => ['labels', 'user', 'project'],
+        ]);
 
         $response->assertStatus(Response::HTTP_OK);
-
-        // TODO: Need to remove after first successful start
-        $this->exportJson('get_task.json', $response->json());
 
         $this->assertEqualsFixture('get_task.json', $response->json());
     }
 
     public function testGetNotExists()
     {
-        $response = $this->actingAs($this->user)->json('get', '/tasks/0');
+        $response = $this->actingAs($this->admin)->json('get', '/tasks/0');
 
         $response->assertStatus(Response::HTTP_NOT_FOUND);
     }
@@ -121,6 +124,21 @@ class TaskTest extends TestCase
             [
                 'filter' => ['all' => 1],
                 'result' => 'search_all.json'
+            ],
+            [
+                'filter' => ['query' => 'project'],
+                'result' => 'search_by_query.json'
+            ],
+            [
+                'filter' => [
+                    'project_id' => 1,
+                    'with' => ['project', 'labels', 'user'],
+                ],
+                'result' => 'search_project_id.json'
+            ],
+            [
+                'filter' => ['user_id' => 2],
+                'result' => 'search_user_id.json'
             ],
             [
                 'filter' => [
@@ -140,12 +158,9 @@ class TaskTest extends TestCase
      */
     public function testSearch($filter, $fixture)
     {
-        $response = $this->json('get', '/tasks', $filter);
+        $response = $this->actingAs($this->admin)->json('get', '/tasks', $filter);
 
         $response->assertStatus(Response::HTTP_OK);
-
-        // TODO: Need to remove after first successful start
-        $this->exportJson($fixture, $response->json());
 
         $this->assertEqualsFixture($fixture, $response->json());
     }

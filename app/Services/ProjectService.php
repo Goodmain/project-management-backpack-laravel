@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Arr;
 use RonasIT\Support\Services\EntityService;
 use App\Repositories\ProjectRepository;
@@ -17,7 +18,7 @@ class ProjectService extends EntityService
         $this->setRepository(ProjectRepository::class);
     }
 
-    public function update($id, array $data)
+    public function update(int $id, array $data): ?Model
     {
         $result = $this->repository->update($id, $data);
 

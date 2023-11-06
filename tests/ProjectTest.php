@@ -112,9 +112,6 @@ class ProjectTest extends TestCase
 
         $response->assertStatus(Response::HTTP_OK);
 
-        // TODO: Need to remove after first successful start
-        $this->exportJson('get_project.json', $response->json());
-
         $this->assertEqualsFixture('get_project.json', $response->json());
     }
 

@@ -15,7 +15,7 @@ class TasksCreateTable extends Migration
             $table->increments('id');
             $table->string('name');
             $table->text('description');
-            $table->enum('status', ['todo', 'in_progress', 'done']);
+            $table->enum('status', ['todo', 'in_progress', 'done'])->default('todo');
             $table
                 ->foreignId('project_id')
                 ->constrained()
