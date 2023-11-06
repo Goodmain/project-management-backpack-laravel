@@ -1,5 +1,7 @@
 # Project Management API
 
+[![Coverage Status](https://coveralls.io/repos/github/Goodmain/project-management-backpack-laravel/badge.svg?branch=development)](https://coveralls.io/github/Goodmain/project-management-backpack-laravel?branch=development)
+
 Just another one project management system
 
 ## Project Resources & Contacts
