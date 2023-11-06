@@ -132,7 +132,7 @@ class ProjectTest extends TestCase
             [
                 'filter' => [
                     'query' => '1',
-                    'with' => ['users'],
+                    'with' => ['users', 'tasks'],
                 ],
                 'result' => 'search_by_query.json'
             ],

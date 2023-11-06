@@ -17,3 +17,16 @@ INSERT INTO project_user(id, project_id, user_id) VALUES
   (4, 4, 2),
   (5, 5, 1),
   (6, 6, 2);
+
+INSERT INTO tasks(id, name, description, project_id, user_id, status, created_at, updated_at) VALUES
+  (1, 'Product main photo', 'Description about the task 1', 1, null, 'todo', '2016-10-20 11:05:00', '2016-10-20 11:05:00'),
+  (2, 'Change the description', 'Change the description of project', 1, 1, 'in_progress', '2016-10-20 11:05:00', '2016-10-20 11:05:00'),
+  (3, 'Update project 1', 'Add more info', 1, null, 'done', '2016-10-20 11:05:00', '2016-10-20 11:05:00'),
+  (4, 'Assign user', 'Assign user 3', 1, 1, 'in_progress', '2016-10-20 11:05:00', '2016-10-20 11:05:00'),
+  (5, 'Find a new client', 'We need to find more clients', 2, 2, 'todo', '2016-10-20 11:05:00', '2016-10-20 11:05:00'),
+  (6, 'Close all tasks', 'All tasks should be closed until Monday', 2, 2, 'todo', '2016-10-20 11:05:00', '2016-10-20 11:05:00'),
+  (7, 'Start new project', 'We should begin something new', 3, 1, 'todo', '2016-10-20 11:05:00', '2016-10-20 11:05:00'),
+  (8, 'Find five more clients', 'Better to find six', 3, 2, 'in_progress', '2016-10-20 11:05:00', '2016-10-20 11:05:00'),
+  (9, 'Pay for the project', 'Use wire payment', 3, 2, 'done', '2016-10-20 11:05:00', '2016-10-20 11:05:00'),
+  (10, 'Sell product', 'Sell more products', 4, null, 'done', '2016-10-20 11:05:00', '2016-10-20 11:05:00'),
+  (11, 'Close the project', 'Just close it', 5, 1, 'in_progress', '2016-10-20 11:05:00', '2016-10-20 11:05:00');

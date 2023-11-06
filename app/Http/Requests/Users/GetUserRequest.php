@@ -35,6 +35,8 @@ class GetUserRequest extends Request
             'role',
             'media',
             'media.owner',
+            'projects',
+            'tasks',
         ];
     }
 }

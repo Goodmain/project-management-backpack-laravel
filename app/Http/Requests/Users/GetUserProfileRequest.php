@@ -22,6 +22,8 @@ class GetUserProfileRequest extends Request
             'role',
             'media',
             'media.owner',
+            'projects',
+            'tasks',
         ];
     }
 }
